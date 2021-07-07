@@ -20,8 +20,11 @@ abstract class ActiveRepo<TKey, TVal> extends Repo<TKey, TVal> {
   }
 
   @override
-  Future<void> init() async {
-    _box = await Hive.openBox<TVal>(boxName);
+  Future<void> init({HiveAesCipher? hiveAesCipher}) async {
+    _box = await Hive.openBox<TVal>(
+      boxName,
+      encryptionCipher: hiveAesCipher,
+    );
   }
 
   /// Notifies the user when any write operations occur.
